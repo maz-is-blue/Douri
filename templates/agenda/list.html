@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Agenda — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap page-head">
+  <p class="eyebrow">Agenda</p>
+  <h1>What’s on at Douri</h1>
+  <p class="lead">One featured event, plus our recurring workshops at Douri’s Salon — grouped by month.</p>
+</main>
+<main class="wrap" style="padding-bottom:96px">
+
+  {% if featured %}
+  <article class="reveal" style="border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:80px">
+    <img class="photo" src="{{ featured.image.url }}" alt="{{ featured.title }}" style="height:260px">
+    <div style="padding:36px 34px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px">
+      <div>
+        <p class="eyebrow">Featured event</p>
+        <h2 style="font-weight:600;font-size:30px;margin:0 0 18px">{{ featured.title }}</h2>
+        <p style="font-size:17px;line-height:1.75;margin:0 0 26px">{{ featured.description }}</p>
+        <div style="display:grid;gap:14px">
+          {% for line in featured.participant_lines %}
+            <div style="border-left:2px solid var(--blue-pale);padding-left:16px">
+              <p style="font-size:16px;line-height:1.6;color:var(--ink);margin:0">{{ line }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div style="background:var(--tint);border-radius:6px;padding:28px;align-self:start">
+        <div style="display:grid;gap:16px;font-size:15px;line-height:1.6">
+          <div><span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-light);margin-bottom:4px">Date</span>{{ featured.date_label }}</div>
+          <div><span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-light);margin-bottom:4px">Location</span>{{ featured.location }}</div>
+          <div><span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-light);margin-bottom:4px">Entry</span>{{ featured.entry }}</div>
+        </div>
+        <a href="{{ featured.register_url }}" target="_blank" rel="noopener" class="btn btn-primary btn-block" style="margin-top:26px">Register now</a>
+      </div>
+    </div>
+  </article>
+  {% endif %}
+
+  <h2 style="font-weight:600;font-size:28px;margin:0 0 8px">Recurring workshops</h2>
+  <p style="font-size:16px;margin:0 0 44px">Douri’s Salon · 10 Rue du Château, 4433 Soleuvre, Sanem</p>
+
+  {% for group in agenda_months %}
+    <section class="reveal" style="margin-bottom:56px">
+      <div style="display:flex;align-items:center;gap:18px;margin-bottom:26px">
+        <h3 style="font-weight:600;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin:0">{{ group.month }}</h3>
+        <span style="flex:1;height:1px;background:var(--line)"></span>
+        <span style="font-size:13px;color:var(--gray-light)">{{ group.items|length }} session{{ group.items|length|pluralize }}</span>
+      </div>
+      <div class="grid" data-stagger>
+        {% for item in group.items %}
+          <article class="reveal" style="display:grid;grid-template-columns:190px 1fr auto;gap:28px;border:1px solid var(--line);border-radius:8px;overflow:hidden;align-items:stretch">
+            <img class="photo" src="{{ item.image.url }}" alt="{{ item.title }}" style="min-height:200px">
+            <div style="padding:26px 0">
+              <p class="eyebrow" style="margin-bottom:8px">{{ item.date_label }} · {{ item.time_label }}</p>
+              <h4 style="font-weight:500;font-size:20px;margin:0 0 12px">{{ item.title }}</h4>
+              <p style="font-size:16px;line-height:1.65;margin:0 0 18px;max-width:560px">{{ item.description }}</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;color:var(--gray-light)">
+                <span><strong style="color:var(--gray);font-weight:500">Dates:</strong> {{ item.dates_label }}</span>
+                <span><strong style="color:var(--gray);font-weight:500">Price:</strong> {{ item.price_tiers }}</span>
+                <span><strong style="color:var(--gray);font-weight:500">Languages:</strong> {{ item.languages }}</span>
+              </div>
+            </div>
+            <div style="padding:26px 26px 26px 0;display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:170px">
+              <a href="{{ item.register_url }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Register</a>
+              {% if item.info_url %}<a href="{{ item.info_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Watch info video</a>{% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% empty %}
+    <p class="text-muted">No recurring workshops scheduled yet — add sessions from the dashboard.</p>
+  {% endfor %}
+
+</main>
+{% endblock %}

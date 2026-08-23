@@ -1,0 +1,98 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Douri asbl{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}Douri asbl — a Luxembourg non-profit using art and dialogue to build inclusive, intercultural communities.{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/design-system.css' %}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+{% include 'partials/sparrow_flight.html' %}
+
+<header class="site-header" data-site-header>
+  <div class="site-header__inner">
+    <a href="{% url 'core:home' %}" class="site-header__logo" style="display:flex;align-items:center;gap:10px">
+      <svg viewBox="0 0 64 64" width="28" height="28" fill="none" stroke="#0092D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 44c10 3 18-1 23-8 4-6 6-13 12-16 7-4 15-2 19 3-3 4-8 6-13 5 4 3 5 8 3 12-3 7-11 11-19 11-9 0-18-2-25-7z" />
+        <circle cx="45" cy="26" r="1.6" fill="#0092D4" stroke="none" />
+      </svg>
+      <strong style="font-family:'Montserrat Alternates',sans-serif;font-weight:600;font-size:20px;color:#222222">Douri</strong>
+    </a>
+    <nav class="site-nav">
+      <a href="{% url 'core:home' %}">Home</a>
+      <a href="{% url 'agenda:agenda' %}">Agenda</a>
+      <a href="{% url 'interviews:list' %}">Interviews</a>
+      <a href="{% url 'projects:list' %}">Projects</a>
+      <a href="{% url 'core:volunteer' %}">Volunteer</a>
+      <a href="{% url 'core:support-us' %}">Support Us</a>
+      <a href="{% url 'core:contact' %}">Contact</a>
+      <a href="{% url 'core:about' %}">About</a>
+      <a href="{% url 'people:our-team' %}">Our Team</a>
+    </nav>
+  </div>
+</header>
+
+{% if messages %}
+  <div class="wrap" style="padding-top:20px">
+    {% for message in messages %}
+      <p class="form-note">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:22px">
+        <svg viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="#77B3FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 44c10 3 18-1 23-8 4-6 6-13 12-16 7-4 15-2 19 3-3 4-8 6-13 5 4 3 5 8 3 12-3 7-11 11-19 11-9 0-18-2-25-7z" />
+          <circle cx="45" cy="26" r="1.6" fill="#77B3FF" stroke="none" />
+        </svg>
+        <strong style="font-family:'Montserrat Alternates',sans-serif;font-weight:600;font-size:22px;color:#FFFFFF">Douri</strong>
+      </div>
+      <p style="max-width:380px">{{ site_settings.footer_text }}</p>
+      <p style="color:rgba(255,255,255,.8)">Call us {{ site_settings.phone }}</p>
+    </div>
+    <div>
+      <h3>Quick links</h3>
+      <div class="links">
+        <a href="{% url 'core:home' %}">Home</a>
+        <a href="{% url 'agenda:agenda' %}">Agenda</a>
+        <a href="{% url 'interviews:list' %}">Interviews</a>
+        <a href="{% url 'projects:list' %}">Projects</a>
+        <a href="{% url 'core:volunteer' %}">Volunteer</a>
+        <a href="{% url 'core:support-us' %}">Support us</a>
+        <a href="{% url 'core:contact' %}">Contact</a>
+        <a href="{% url 'core:about' %}">About</a>
+        <a href="{% url 'people:our-team' %}">Our team</a>
+        <a href="{% url 'core:shop' %}">Shop</a>
+      </div>
+    </div>
+    <div>
+      <h3>Contact info</h3>
+      <p>{{ site_settings.address }}<br>{{ site_settings.rcs }}</p>
+      <p><a href="mailto:{{ site_settings.email }}" style="color:#77B3FF">{{ site_settings.email }}</a></p>
+      <div style="display:flex;gap:14px">
+        {% if site_settings.facebook_url %}<a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+        {% if site_settings.instagram_url %}<a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>© Copyright by Douri asbl</p>
+    <a href="{% url 'admin:index' %}">Team dashboard</a>
+  </div>
+</footer>
+
+<script src="{% static 'js/sparrow-flight.js' %}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

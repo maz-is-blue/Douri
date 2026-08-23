@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Support us — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap" style="max-width:1100px;padding:60px 28px 96px">
+  <p class="eyebrow">Support us</p>
+  <h1 style="font-weight:600;font-size:clamp(32px,4vw,48px);margin:0 0 16px">Two ways to stand with us</h1>
+  <p class="lead" style="margin:0 0 56px">Donate directly, or become a member and take part in the association’s decisions.</p>
+
+  <div class="grid grid-2" style="margin-bottom:64px">
+    <div class="band-dark reveal" style="border-radius:8px;padding:40px 36px">
+      <h2 style="font-weight:600;font-size:26px;color:var(--white);margin:0 0 14px">Make a donation</h2>
+      <p style="margin:0 0 28px">Every contribution funds workshop materials, artist fees and psychosocial support.</p>
+      <p class="eyebrow eyebrow--light" style="margin-bottom:10px">Our IBAN</p>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <code style="font-family:Roboto,monospace;font-size:19px;letter-spacing:.06em;color:var(--white)">{{ site_settings.iban }}</code>
+        <button type="button" class="btn btn-outline-light btn-sm" data-copy-iban="{{ site_settings.iban }}">Copy IBAN</button>
+      </div>
+      <p style="font-size:13px;color:var(--gray-light);margin:22px 0 0">Account holder: Douri asbl · {{ site_settings.rcs }}</p>
+    </div>
+    <div class="form-panel reveal" style="padding:40px 36px">
+      <h2 style="font-weight:600;font-size:26px;margin:0 0 26px">Become a member</h2>
+      <div class="grid" style="gap:22px">
+        {% for step in member_steps %}
+          <div class="step-item">
+            <span class="step-num">{{ step.n }}</span>
+            <div>
+              <h3>{{ step.title }}</h3>
+              <p style="font-size:15px;line-height:1.65;margin:0">{{ step.text }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <a href="{% url 'core:volunteer' %}" style="display:inline-block;margin-top:30px;font-weight:500">Read the charter →</a>
+    </div>
+  </div>
+
+  <form method="post" class="reveal" style="border-top:1px solid var(--line);padding-top:48px;display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start">
+    {% csrf_token %}
+    <div>
+      <h2 style="font-weight:600;font-size:26px;margin:0 0 12px">Questions about giving?</h2>
+      <p style="font-size:16px;line-height:1.7;margin:0">Write to us and we’ll explain exactly where your support goes. Or email <a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+      {{ form.name }}
+      {{ form.email }}
+      <div style="grid-column:span 2">{{ form.message }}</div>
+      <button type="submit" class="btn btn-primary" style="grid-column:span 2">Send message</button>
+      {% if sent %}<p class="form-note" style="grid-column:span 2">Thank you — your message is in the team’s inbox.</p>{% endif %}
+    </div>
+  </form>
+</main>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Projects — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap page-head">
+  <p class="eyebrow">Projects</p>
+  <h1>Art as a tool for change</h1>
+  <p class="lead">{{ projects|length }} project{{ projects|length|pluralize }} across Luxembourg and Europe. Every project below is a database record — the team adds new ones from the dashboard, with no code change.</p>
+</main>
+<main class="wrap" style="padding-bottom:96px">
+  <div class="grid grid-auto-fill" data-stagger>
+    {% for project in projects %}
+      <a href="{% url 'projects:detail' project.slug %}" class="card reveal">
+        <img class="photo card__image" src="{{ project.hero_image.url }}" alt="{{ project.title }}" style="height:190px">
+        <div class="card__body">
+          <h3 style="font-size:18px">{{ project.title }}</h3>
+          <p>{{ project.tagline }}</p>
+        </div>
+      </a>
+    {% empty %}
+      <p class="text-muted">No projects yet — add the first one from the dashboard.</p>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

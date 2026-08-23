@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Interviews — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap page-head">
+  <p class="eyebrow">Interviews</p>
+  <h1>Conversations with artists</h1>
+  <p class="lead">Long-form interviews on art, displacement, trauma and repair — prepared by Douri’s Empowering Creative Minds team.</p>
+</main>
+<main class="wrap" style="padding-bottom:96px">
+  <div class="grid" style="gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    {% for interview in interviews %}
+      <a href="{% url 'interviews:detail' interview.slug %}" class="interview-row reveal">
+        <img class="photo" src="{{ interview.hero_image.url }}" alt="{{ interview.subject_name }}" style="height:110px">
+        <div>
+          <h2 style="font-weight:500;font-size:22px;line-height:1.35;color:var(--ink);margin:0 0 9px">{{ interview.quote }}</h2>
+          <p>An interview with {{ interview.subject_name }} · {{ interview.publish_date|date:"F j, Y" }}</p>
+        </div>
+        <span class="read">Read →</span>
+      </a>
+    {% empty %}
+      <p class="text-muted" style="padding:26px 0">No interviews yet — add the first one from the dashboard.</p>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

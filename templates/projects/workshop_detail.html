@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ workshop.title }} — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap" style="max-width:840px;padding:56px 28px 96px">
+  <nav style="font-size:13px;color:var(--gray-light);margin-bottom:26px">
+    <a href="{% url 'projects:list' %}">Projects</a> /
+    <a href="{% url 'projects:detail' workshop.project.slug %}">{{ workshop.project.title }}</a> /
+    {{ workshop.title }}
+  </nav>
+  <p class="eyebrow">Workshop recap · {{ workshop.date_label }}</p>
+  <h1 style="font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.12;margin:0 0 30px">{{ workshop.title }}</h1>
+  <img class="photo" src="{{ workshop.image.url }}" alt="{{ workshop.title }}" style="border-radius:6px;margin-bottom:40px;max-height:620px">
+  <div class="prose">{{ workshop.body|safe }}</div>
+  <a href="{% url 'projects:detail' workshop.project.slug %}" style="display:inline-block;margin-top:24px;font-weight:500">← Back to {{ workshop.project.title }}</a>
+</main>
+{% endblock %}

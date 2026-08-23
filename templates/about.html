@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About — Douri asbl{% endblock %}
+
+{% block content %}
+<main>
+  <section class="wrap reveal" style="max-width:900px;padding:64px 28px 0">
+    <p class="eyebrow">About Douri</p>
+    <h1 style="font-weight:600;font-size:clamp(32px,4.2vw,52px);line-height:1.1;margin:0 0 30px">A sparrow thrives wherever it lands</h1>
+  </section>
+  <div class="wrap reveal" style="padding:20px 28px 0">
+    <img class="photo" src="{% static 'img/placeholders/about-hero.jpg' %}" alt="Douri workshop" style="height:440px;border-radius:6px">
+  </div>
+  <section class="wrap prose reveal" style="max-width:760px;padding:56px 28px 88px">
+    {% for paragraph in about_body %}
+      <p>{{ paragraph }}</p>
+    {% endfor %}
+    <div class="grid grid-2" style="margin-top:44px;padding-top:36px;border-top:1px solid var(--line)">
+      <a href="{% url 'people:our-team' %}" class="form-panel" style="padding:26px">
+        <h3 style="font-weight:500;font-size:18px;margin:0 0 6px">Meet the team →</h3>
+        <p style="font-size:14px;margin:0;color:var(--gray-light)">The people behind the projects.</p>
+      </a>
+      <a href="{% url 'projects:list' %}" class="form-panel" style="padding:26px">
+        <h3 style="font-weight:500;font-size:18px;margin:0 0 6px">See our projects →</h3>
+        <p style="font-size:14px;margin:0;color:var(--gray-light)">Every project the association runs.</p>
+      </a>
+    </div>
+  </section>
+</main>
+{% endblock %}

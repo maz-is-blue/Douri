@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Shop — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap" style="max-width:700px;padding:140px 28px 160px;text-align:center">
+  <svg viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#0092D4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 30px;display:block">
+    <path d="M6 44c10 3 18-1 23-8 4-6 6-13 12-16 7-4 15-2 19 3-3 4-8 6-13 5 4 3 5 8 3 12-3 7-11 11-19 11-9 0-18-2-25-7z" />
+    <circle cx="45" cy="26" r="1.4" fill="#0092D4" stroke="none" />
+  </svg>
+  <h1 style="font-weight:600;font-size:clamp(30px,3.6vw,42px);margin:0 0 18px">Something’s brewing</h1>
+  <p style="font-size:18px;line-height:1.7;margin:0 0 32px">Our shop — prints, publications and work made in our workshops — is launching soon. In the meantime, you can support the work directly.</p>
+  <a href="{% url 'core:support-us' %}" class="btn btn-primary">Support us</a>
+</main>
+{% endblock %}

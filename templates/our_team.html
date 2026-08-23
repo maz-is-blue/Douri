@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Our team — Douri asbl{% endblock %}
+
+{% block content %}
+<main class="wrap" style="max-width:1000px;padding:60px 28px 96px">
+  <p class="eyebrow">Our team</p>
+  <h1 style="font-weight:600;font-size:clamp(32px,4vw,48px);margin:0 0 52px">The people behind Douri</h1>
+  <div class="grid" style="gap:1px;background:var(--line)">
+    {% for member in team %}
+      <article class="reveal" style="background:var(--white);display:grid;grid-template-columns:220px 1fr;gap:44px;padding:38px 0">
+        <div>
+          <img class="photo" src="{{ member.photo.url }}" alt="{{ member.name }}" style="border-radius:6px;margin-bottom:14px;aspect-ratio:1/1">
+          {% if member.social_url %}<a href="{{ member.social_url }}" target="_blank" rel="noopener" style="font-size:13px">Profile →</a>{% endif %}
+        </div>
+        <div>
+          <h2 style="font-weight:600;font-size:26px;margin:0 0 6px">{{ member.name }}</h2>
+          <p style="font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin:0 0 22px">{{ member.role }}</p>
+          <div class="prose" style="font-size:17px">{{ member.full_bio|safe }}</div>
+        </div>
+      </article>
+    {% empty %}
+      <p class="text-muted" style="padding:26px 0">No team members yet — add the first one from the dashboard.</p>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{ interview.quote }} — Douri asbl{% endblock %}
+
+{% block content %}
+<main>
+  <div class="wrap reveal" style="max-width:1000px;padding:56px 28px 0">
+    <nav style="font-size:13px;color:var(--gray-light);margin-bottom:30px">
+      <a href="{% url 'interviews:list' %}">Interviews</a> / {{ interview.subject_name }}
+    </nav>
+    <h1 style="font-weight:600;font-size:clamp(30px,4vw,50px);line-height:1.1;margin:0 0 24px">{{ interview.quote }}</h1>
+    <p style="font-size:19px;color:var(--blue);margin:0 0 8px">An interview with {{ interview.subject_name }}</p>
+    <p style="font-size:14px;color:var(--gray-light);margin:0 0 40px">
+      {% if interview.prepared_by %}Prepared by {{ interview.prepared_by }} · {% endif %}
+      {% if interview.edited_by %}Edited by {{ interview.edited_by }} · {% endif %}
+      {{ interview.publish_date|date:"F j, Y" }}
+    </p>
+    <img src="{{ interview.hero_image.url }}" alt="{{ interview.subject_name }}" style="width:100%;height:auto;max-height:420px;object-fit:cover;border-radius:6px;display:block;margin-bottom:52px">
+  </div>
+  <div class="wrap reveal" style="max-width:760px;padding:0 28px 40px">
+    <div class="prose">{{ interview.body|safe }}</div>
+    {% if project %}
+      <p style="border-top:1px solid var(--line);padding-top:26px;font-size:15px;margin:44px 0 0">
+        Part of <a href="{% url 'projects:detail' project.slug %}" style="font-weight:500">{{ project.title }}</a>
+      </p>
+    {% endif %}
+  </div>
+
+  {% if related_interviews %}
+  <section class="reveal" style="border-top:1px solid var(--line);background:var(--tint);padding:64px 0">
+    <div class="wrap">
+      <h2 style="font-weight:500;font-size:22px;margin:0 0 30px">More interviews</h2>
+      <div class="grid grid-auto-md">
+        {% for other in related_interviews %}
+          <a href="{% url 'interviews:detail' other.slug %}" class="card" style="background:var(--white)">
+            <img class="photo card__image" src="{{ other.hero_image.url }}" alt="{{ other.subject_name }}" style="height:110px">
+            <div class="card__body">
+              <h3 style="font-size:17px;line-height:1.4">{{ other.quote }}</h3>
+              <p style="font-size:13px">{{ other.subject_name }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</main>
+{% endblock %}
