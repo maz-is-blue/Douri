@@ -137,7 +137,7 @@ class Command(BaseCommand):
                 ),
                 show_interviews=True, show_social=True, show_closing_cta=True,
                 ctas=[
-                    ('Explore workshops', '/projects/empowering-creative-minds/#project-workshops'),
+                    ('Explore workshops', '#project-workshops'),
                     ('Watch the project film', 'https://youtu.be/qXC6dc_MuW0'),
                     ('Read recommendations', 'https://drive.google.com/file/d/1IFn_NeGDm1LZEDS6wKECSuSpl6kuziqQ/view'),
                 ],

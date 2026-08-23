@@ -1,0 +1,28 @@
+/* Douri brand touches on top of the Jazzmin admin theme. */
+:root {
+  --douri-blue: #0092D4;
+  --douri-blue-2: #29A1E2;
+}
+
+.navbar.navbar-info,
+.main-sidebar {
+  background-color: #222222 !important;
+}
+
+.nav-sidebar > .nav-item > .nav-link.active {
+  background-color: var(--douri-blue) !important;
+}
+
+.btn-info,
+.btn-outline-info:hover {
+  background-color: var(--douri-blue) !important;
+  border-color: var(--douri-blue) !important;
+}
+
+a {
+  color: var(--douri-blue);
+}
+
+.brand-link .brand-text {
+  font-weight: 600;
+}

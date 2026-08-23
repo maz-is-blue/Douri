@@ -82,6 +82,26 @@ submissions**, with filters for status (new / read / archived) and a bulk action
 messages as read or archived. There's no outgoing email integration in v1 — staff check the
 inbox in the dashboard.
 
+## Static UI preview (GitHub Pages)
+
+GitHub Pages only serves static files — it can't run Django, so the admin dashboard and the
+Contact/Volunteer/Support Us forms won't work there. For a look-only preview of the UI:
+
+```bash
+python manage.py seed_content     # if you haven't already
+python manage.py export_static    # renders every page to docs/, links prefixed for /Douri/
+git add docs && git commit -m "Update static preview" && git push
+```
+
+Then in the GitHub repo: **Settings → Pages → Source: Deploy from a branch → Branch: `main`,
+folder: `/docs`**. The site will be live at `https://<your-username>.github.io/Douri/` a
+minute or two later.
+
+`export_static` re-renders every page with `{% url %}`/`{% static %}` output rewritten for
+that subpath (`--base-path` defaults to `/Douri/`; pass a different value if the repo is
+renamed or forked). Re-run it after any content or template change — `docs/` is a generated
+snapshot, not something to hand-edit.
+
 ## Design system
 
 The palette, type and motion are pulled directly from Douri's real brand (not placeholders):
